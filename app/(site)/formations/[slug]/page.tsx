@@ -4,6 +4,7 @@ import { getCourse, courses } from "@/lib/courses";
 import { createClient } from "@/lib/supabase/server";
 import { hasPurchased } from "@/lib/purchases";
 import BuyButton from "./BuyButton";
+import PhotoCover from "@/components/illustrations/PhotoCover";
 
 export function generateStaticParams() {
   return courses.map((c) => ({ slug: c.slug }));
@@ -35,10 +36,10 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
             <h1 style={{ fontSize: "2.3rem" }}>{course.title}</h1>
             <p className="sub" style={{ fontSize: "1.1rem", color: "#4a4d68" }}>{course.heroSubtitle}</p>
             <div
-              className="img-placeholder"
+              className="illustration-frame"
               style={{ width: "100%", maxWidth: 320, aspectRatio: "16/9", marginTop: 18 }}
             >
-              <span>Emplacement photo — couverture de la formation</span>
+              <PhotoCover src={`/images/${course.slug}.jpg`} alt={course.shortTitle} />
             </div>
           </div>
           <div className="buy-card">

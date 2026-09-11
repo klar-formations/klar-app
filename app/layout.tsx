@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Baloo_2, Manrope } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import SvgDefs from "@/components/illustrations/SvgDefs";
+import CustomCursor from "@/components/CustomCursor";
 
 const baloo = Baloo_2({
   variable: "--font-baloo",
@@ -25,14 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${baloo.variable} ${manrope.variable}`}>
       <body>
-        <Header />
+        <SvgDefs />
+        <CustomCursor />
         {children}
-        <footer className="site-footer">
-          <div className="wrap">
-            Klar — plateforme de formation pour indépendants français. Les formations sont
-            payantes ; l&apos;accès est nominatif.
-          </div>
-        </footer>
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getUserPurchasedSlugs } from "@/lib/purchases";
 import { courses } from "@/lib/courses";
+import PhotoCover from "@/components/illustrations/PhotoCover";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -32,10 +33,10 @@ export default async function HomePage() {
           </div>
         </div>
         <div
-          className="hero-art img-placeholder"
-          style={{ width: "100%", maxWidth: 340, aspectRatio: "1/1", borderStyle: "solid", background: "var(--white)" }}
+          className="hero-art illustration-frame"
+          style={{ width: "100%", maxWidth: 340, aspectRatio: "1/1", background: "var(--white)" }}
         >
-          <span>Emplacement photo — à remplacer par une image de marque</span>
+          <PhotoCover src="/images/hero.jpg" alt="" />
         </div>
       </section>
 
@@ -50,7 +51,10 @@ export default async function HomePage() {
           </div>
           <div className="catalog-grid">
             {courses.map((course) => (
-              <div className="course-card" key={course.slug}>
+              <div className={`course-card accent-${course.accent}`} key={course.slug}>
+                <div className="illustration-frame" style={{ aspectRatio: "16/9", borderRadius: 0 }}>
+                  <PhotoCover src={`/images/${course.slug}.jpg`} alt={course.shortTitle} />
+                </div>
                 <div className={`course-band ${course.accent}`}></div>
                 <div className="course-body">
                   <div className="course-eyebrow" style={{ color: `var(--${course.accent === "indigo" ? "indigo" : course.accent})` }}>
@@ -106,6 +110,27 @@ export default async function HomePage() {
               <div className="why-icon" style={{ background: "var(--sage-pale)", color: "var(--sage)" }}>⏱</div>
               <h4>À ton rythme</h4>
               <p>Ta progression est sauvegardée automatiquement : reprends où tu t&apos;es arrêté·e, quand tu veux.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="histoire">
+        <div className="wrap">
+          <div className="story-block">
+            <span className="hero-tag">L&apos;histoire de Klar</span>
+            <h2>Pourquoi cette plateforme existe</h2>
+            <p className="story-text">
+              On trouve aujourd&apos;hui des dizaines de tutos, vidéos et articles sur la création
+              et la gestion d&apos;une micro-entreprise — et on s&apos;y perd presque aussi vite
+              qu&apos;on les trouve. Vouloir vendre un service ou avoir un vrai savoir-faire ne
+              suffit pas toujours à comprendre tout ce charabia administratif. Klar est né de
+              cette envie très simple : rassembler au même endroit des informations vérifiées et à
+              jour, dans des modules simples, digestes et complets — avec de petits exercices pour
+              vérifier que tout est bien assimilé, à ton rythme.
+            </p>
+            <div className="story-quote">
+              Klar veut dire « clair, net » en scandinave. Avec Klar, on va à l&apos;essentiel.
             </div>
           </div>
         </div>

@@ -3,19 +3,28 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getUserPurchasedSlugs } from "@/lib/purchases";
 import { courses } from "@/lib/courses";
+import PhotoCover from "@/components/illustrations/PhotoCover";
 
 export const metadata = { title: "Mes formations — Klar" };
 
 export default async function MesFormationsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // En local (npm run dev), on affiche toutes les formations pour prévisualiser
+  // librement, sans compte ni achat. Cette exception n'existe pas en production.
+  const isLocalPreview = process.env.NODE_ENV === "development";
 
-  if (!user) redirect("/connexion?next=/mes-formations");
+  let owned = courses;
 
-  const purchasedSlugs = await getUserPurchasedSlugs(supabase, user.id);
-  const owned = courses.filter((c) => purchasedSlugs.includes(c.slug));
+  if (!isLocalPreview) {
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) redirect("/connexion?next=/mes-formations");
+
+    const purchasedSlugs = await getUserPurchasedSlugs(supabase, user.id);
+    owned = courses.filter((c) => purchasedSlugs.includes(c.slug));
+  }
 
   return (
     <div className="wrap section">
@@ -33,7 +42,10 @@ export default async function MesFormationsPage() {
       ) : (
         <div className="catalog-grid">
           {owned.map((course) => (
-            <div className="course-card" key={course.slug}>
+            <div className={`course-card accent-${course.accent}`} key={course.slug}>
+              <div className="illustration-frame" style={{ aspectRatio: "16/9", borderRadius: 0 }}>
+                <PhotoCover src={`/images/${course.slug}.jpg`} alt={course.shortTitle} />
+              </div>
               <div className={`course-band ${course.accent}`}></div>
               <div className="course-body">
                 <h3>{course.shortTitle}</h3>
