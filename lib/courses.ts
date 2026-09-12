@@ -5,7 +5,7 @@ export type Course = {
   slug: string;
   title: string;
   shortTitle: string;
-  category: "ADMINISTRATIF" | "COMMERCIAL" | "FINANCE" | "PRODUCTIVITÉ";
+  category: "ADMINISTRATIF" | "COMMERCIAL" | "FINANCE" | "PRODUCTIVITÉ" | "FONDATIONS";
   accent: "sage" | "terracotta" | "indigo";
   tag: string;
   heroSubtitle: string;
@@ -18,6 +18,8 @@ export type Course = {
   forWho: { yes: string; no: string };
   faq: FaqItem[];
   totalLessonsForProgress: number;
+  /** Optional cross-reference note shown below "Pour qui, pas pour qui" on the produit page. */
+  prerequisiteNote?: string;
 };
 
 export const courses: Course[] = [
@@ -69,6 +71,52 @@ export const courses: Course[] = [
     totalLessonsForProgress: 32,
   },
   {
+    slug: "niche",
+    title: "Niche, Offre & Système de vente",
+    shortTitle: "Niche, Offre & Vente",
+    category: "FONDATIONS",
+    accent: "sage",
+    tag: "FONDATIONS · Pour freelances et indépendants",
+    heroSubtitle:
+      "Le guide complet pour savoir précisément à qui tu t'adresses, ce que tu vends, et comment faire en sorte que les bonnes personnes le découvrent — la base sur laquelle tout le reste devient plus simple.",
+    priceEuros: 97,
+    stripePriceId: null,
+    meta: { modules: 5, lessons: 15, quizzes: 5 },
+    buyList: [
+      "15 leçons avec méthode et exemples concrets",
+      "5 quiz d'évaluation avec correction",
+      "Un plan d'action personnalisé en fin de formation",
+      "Mises à jour incluses",
+    ],
+    learnItems: [
+      "Distinguer un secteur d'activité d'une vraie niche, et identifier la tienne.",
+      "Valider ta niche à moindre coût, avant de t'y engager pleinement.",
+      "Transformer une liste de compétences en une offre claire et lisible.",
+      "Structurer ton offre en plusieurs niveaux, sans brader ton offre principale.",
+      "Choisir un canal de visibilité adapté à ta niche, et tenir une routine simple.",
+      "Transformer l'attention générée en vraies prises de contact.",
+    ],
+    modules: [
+      { title: "Pourquoi niche, offre et vente sont indissociables", description: "Le fil conducteur de toute la formation" },
+      { title: "Trouver et valider sa niche", description: "Identifier un positionnement précis, puis le tester" },
+      { title: "Construire une offre claire et vendable", description: "D'une liste de compétences à une offre lisible et structurée" },
+      { title: "Mettre en place un système pour faire venir des prospects", description: "Choisir un canal, tenir une routine, générer du contact" },
+      { title: "Aligner les trois et éviter les pièges", description: "Erreurs classiques, signaux à observer, plan d'action" },
+    ],
+    forWho: {
+      yes: "Tu te sens dispersé·e dans tes missions ou ta communication, tu as du mal à répondre en une phrase à « tu fais quoi ? », ou tes prospects ne correspondent jamais tout à fait à ce que tu voudrais faire.",
+      no: "Tu as déjà une niche et une offre claires, qui te ramènent régulièrement les bons prospects — direction plutôt les formations Tarifs ou Premiers clients pour aller plus loin.",
+    },
+    faq: [
+      { question: "Faut-il déjà avoir une activité lancée pour suivre cette formation ?", answer: "Non, elle convient aussi bien à quelqu'un qui prépare son lancement qu'à un indépendant déjà en activité qui cherche à se repositionner plus clairement." },
+      { question: "Cette formation va-t-elle m'obliger à changer complètement de niche ?", answer: "Pas nécessairement. L'objectif est de clarifier et de préciser ce qui existe déjà, pas forcément de tout reconstruire depuis zéro." },
+      { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
+    ],
+    totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation se situe en amont du catalogue Klar. Une fois ta niche et ton offre posées, les formations « Fixer et faire respecter ses tarifs » et « De la première prise de contact au client payant » prennent le relais.",
+  },
+  {
     slug: "clients",
     title: "De la première prise de contact au client payant",
     shortTitle: "Premiers clients",
@@ -113,6 +161,8 @@ export const courses: Course[] = [
       { question: "Cette formation convient-elle à tout type d'activité freelance ?", answer: "Oui, les principes et scripts s'adaptent à toute activité de service B2B ou B2C : graphisme, développement, conseil, rédaction, coaching..." },
     ],
     totalLessonsForProgress: 29,
+    prerequisiteNote:
+      "Cette formation part du principe que tu as déjà une offre claire et que des prospects te contactent. Si ce n'est pas encore le cas, la formation « Niche, Offre & Système de vente » t'aide à poser ces bases en amont.",
   },
   {
     slug: "tresorerie",
@@ -201,6 +251,8 @@ export const courses: Course[] = [
       { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
     ],
     totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation part du principe que ton activité et ton offre sont déjà définies. Si ce n'est pas encore le cas — si ta niche ou ton offre restent floues — la formation « Niche, Offre & Système de vente » est le point de départ le plus logique.",
   },
   {
     slug: "facturation",
@@ -289,6 +341,52 @@ export const courses: Course[] = [
       { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
     ],
     totalLessonsForProgress: 20,
+  },
+  {
+    slug: "communication",
+    title: "Communication visuelle : de quoi as-tu vraiment besoin ?",
+    shortTitle: "Communication visuelle",
+    category: "FONDATIONS",
+    accent: "terracotta",
+    tag: "FONDATIONS · Pour freelances et indépendants",
+    heroSubtitle:
+      "Le guide pour savoir précisément ce dont ton activité a besoin — logo, charte graphique, réseaux, site, supports physiques — dans quel ordre, avec quel niveau minimum, et quand déléguer plutôt que bricoler.",
+    priceEuros: 97,
+    stripePriceId: null,
+    meta: { modules: 5, lessons: 15, quizzes: 5 },
+    buyList: [
+      "15 leçons pour diagnostiquer et prioriser, pas des tutoriels logiciels",
+      "5 quiz d'évaluation avec correction",
+      "Une méthode pour choisir entre DIY et professionnel",
+      "Mises à jour incluses",
+    ],
+    learnItems: [
+      "Identifier tes vrais besoins visuels selon ta niche, ton offre et ton canal.",
+      "Éviter les deux pièges opposés : trop investir trop tôt, ou rester invisible trop longtemps.",
+      "Construire un logo et une charte graphique minimum viables, cohérents et faciles à tenir.",
+      "Savoir quand un site vitrine suffit, et quand un tunnel de vente devient utile.",
+      "Reconnaître quand un flyer, un support physique ou une vidéo deviennent vraiment pertinents.",
+      "Trancher entre faire soi-même et déléguer, et bien briefer un professionnel.",
+    ],
+    modules: [
+      { title: "Pourquoi la plupart investissent dans le mauvais ordre", description: "Les deux pièges opposés, et le bon ordre à suivre" },
+      { title: "Diagnostiquer ses besoins réels", description: "Selon sa niche, son offre et son canal principal" },
+      { title: "Le socle minimum viable", description: "Logo, charte graphique et présence en ligne de base" },
+      { title: "Les supports selon le canal choisi", description: "Réseaux, site ou tunnel de vente, supports physiques et vidéo" },
+      { title: "Faire soi-même ou déléguer", description: "Critères de choix, brief efficace, budget réaliste" },
+    ],
+    forWho: {
+      yes: "Tu ne sais pas si tu as besoin d'un logo, d'un site ou de plus de présence sur les réseaux, tu as déjà investi dans des supports jamais vraiment utilisés, ou tu hésites entre bricoler toi-même et faire appel à un professionnel.",
+      no: "Tu cherches un tutoriel pour apprendre à utiliser un logiciel de design ou à monter une vidéo — cette formation aide à décider quoi faire, pas à l'exécuter techniquement.",
+    },
+    faq: [
+      { question: "Vais-je apprendre à créer un logo ou un site moi-même ?", answer: "Non, cette formation ne remplace pas un logiciel de design ou un constructeur de site — elle t'aide à savoir précisément ce dont tu as besoin, avant de le faire toi-même simplement ou de le confier à un professionnel." },
+      { question: "J'ai déjà un logo et des réseaux sociaux, cette formation m'apporte-t-elle quelque chose ?", answer: "Oui : une bonne partie du travail consiste justement à diagnostiquer si l'existant est cohérent et bien utilisé, plutôt que de tout recréer inutilement." },
+      { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
+    ],
+    totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation part du principe que ta niche et ton offre sont déjà posées. Si ce n'est pas encore le cas, la formation « Niche, Offre & Système de vente » est le point de départ le plus logique.",
   },
 ];
 

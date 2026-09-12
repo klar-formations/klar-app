@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getUserPurchasedSlugs } from "@/lib/purchases";
 import { courses } from "@/lib/courses";
 import PhotoCover from "@/components/illustrations/PhotoCover";
+import CourseProgressBar from "@/components/course-player/CourseProgressBar";
 
 export const metadata = { title: "Mes formations — Klar" };
 
@@ -50,6 +51,7 @@ export default async function MesFormationsPage() {
               <div className="course-body">
                 <h3>{course.shortTitle}</h3>
                 <p className="desc">{course.heroSubtitle}</p>
+                <CourseProgressBar slug={course.slug} />
                 <Link
                   href={`/mes-formations/${course.slug}`}
                   className="btn btn-primary"

@@ -111,6 +111,11 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
             <p>{course.forWho.no}</p>
           </div>
         </div>
+        {course.prerequisiteNote && (
+          <p style={{ marginTop: 16, fontSize: "0.9rem", color: "#5c5f7a" }}>
+            <strong style={{ color: "var(--indigo)" }}>À savoir :</strong> {course.prerequisiteNote}
+          </p>
+        )}
       </div>
 
       <div className="wrap section">
