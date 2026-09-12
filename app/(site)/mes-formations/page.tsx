@@ -45,7 +45,7 @@ export default async function MesFormationsPage() {
           {owned.map((course) => (
             <div className={`course-card accent-${course.accent}`} key={course.slug}>
               <div className="illustration-frame" style={{ aspectRatio: "16/9", borderRadius: 0 }}>
-                <PhotoCover src={`/images/${course.slug}.jpg`} alt={course.shortTitle} />
+                <PhotoCover src={`/images/${course.slug}-catalog.jpg`} alt={course.shortTitle} />
               </div>
               <div className={`course-band ${course.accent}`}></div>
               <div className="course-body">

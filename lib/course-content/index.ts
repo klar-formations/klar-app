@@ -7,6 +7,9 @@ import { modules as tarifs } from "./tarifs";
 import { modules as facturation } from "./facturation";
 import { modules as organisation } from "./organisation";
 import { modules as communication } from "./communication";
+import { modules as protectionSociale } from "./protection-sociale";
+import { modules as protectionJuridique } from "./protection-juridique";
+import { modules as fidelisation } from "./fidelisation";
 
 export const courseContent: Record<string, CourseModuleData[]> = {
   microentreprise,
@@ -17,6 +20,9 @@ export const courseContent: Record<string, CourseModuleData[]> = {
   facturation,
   organisation,
   communication,
+  "protection-sociale": protectionSociale,
+  "protection-juridique": protectionJuridique,
+  fidelisation,
 };
 
 export function getCourseContent(slug: string): CourseModuleData[] | undefined {

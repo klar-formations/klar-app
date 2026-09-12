@@ -5,7 +5,7 @@ export type Course = {
   slug: string;
   title: string;
   shortTitle: string;
-  category: "ADMINISTRATIF" | "COMMERCIAL" | "FINANCE" | "PRODUCTIVITÉ" | "FONDATIONS";
+  category: "ADMINISTRATIF" | "COMMERCIAL" | "FINANCE" | "PRODUCTIVITÉ" | "FONDATIONS" | "PROTECTION";
   accent: "sage" | "terracotta" | "indigo";
   tag: string;
   heroSubtitle: string;
@@ -387,6 +387,144 @@ export const courses: Course[] = [
     totalLessonsForProgress: 20,
     prerequisiteNote:
       "Cette formation part du principe que ta niche et ton offre sont déjà posées. Si ce n'est pas encore le cas, la formation « Niche, Offre & Système de vente » est le point de départ le plus logique.",
+  },
+  {
+    slug: "protection-sociale",
+    title: "Ta protection sociale d'indépendant·e",
+    shortTitle: "Protection sociale",
+    category: "PROTECTION",
+    accent: "indigo",
+    tag: "PROTECTION · Pour micro-entrepreneur·ses",
+    heroSubtitle:
+      "Le guide pour comprendre à quoi tu as vraiment droit — arrêt maladie, congé maternité et paternité, retraite — et comment protéger ce que le régime obligatoire ne couvre pas.",
+    priceEuros: 97,
+    stripePriceId: null,
+    meta: { modules: 5, lessons: 15, quizzes: 5 },
+    buyList: [
+      "15 leçons avec chiffres et conditions à jour de 2026",
+      "5 quiz d'évaluation avec correction",
+      "Une checklist complète de protection sociale",
+      "Mises à jour incluses en cas d'évolution réglementaire",
+    ],
+    learnItems: [
+      "Comprendre à quoi tu as vraiment droit en tant que micro-entrepreneur·se, et ce qui ne l'est pas.",
+      "Savoir si tu remplis les conditions pour être indemnisé·e en cas d'arrêt maladie.",
+      "Connaître tes droits précis en cas de congé maternité ou paternité, et les démarches à suivre.",
+      "Comprendre comment tes trimestres de retraite sont validés, et anticiper une pension souvent modeste.",
+      "Identifier les trous de couverture (accidents du travail) et évaluer une prévoyance complémentaire.",
+      "Repartir avec une checklist complète à vérifier chaque année.",
+    ],
+    modules: [
+      { title: "Comprendre à quoi tu as droit", description: "Le mythe « indépendant = pas protégé », ce qui est vrai et faux" },
+      { title: "L'arrêt maladie", description: "Conditions, calcul des indemnités, ce qui n'est pas couvert" },
+      { title: "Congé maternité et paternité", description: "Durée, conditions, calcul des deux prestations" },
+      { title: "La retraite du micro-entrepreneur", description: "Validation des trimestres, retraite complémentaire" },
+      { title: "S'organiser pour protéger l'avenir", description: "Prévoyance complémentaire, vérification annuelle, checklist" },
+    ],
+    forWho: {
+      yes: "Tu ne sais pas précisément à quoi tu as droit en cas d'arrêt maladie ou de maternité, tu t'inquiètes pour ta future retraite, ou tu veux simplement comprendre ta situation avant qu'un imprévu ne te force à tout découvrir dans l'urgence.",
+      no: "Tu cherches un conseil personnalisé sur ta situation précise — cette formation donne les repères généraux, pas un avis individuel sur ton dossier (voir la CPAM ou un conseiller retraite pour cela).",
+    },
+    faq: [
+      { question: "Les chiffres et seuils indiqués sont-ils à jour ?", answer: "Oui, l'ensemble des montants et conditions reflète la réglementation 2026 en vigueur au moment de la rédaction. Ces éléments évoluent chaque année : les mises à jour de la formation sont incluses." },
+      { question: "Cette formation remplace-t-elle un conseiller retraite ou la CPAM ?", answer: "Non, elle donne les repères généraux pour comprendre le système et poser les bonnes questions, mais ne remplace pas un calcul personnalisé sur ta situation individuelle." },
+      { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
+    ],
+    totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation complète naturellement « Micro-entreprise 2026 » (le cadre administratif global) et « Gérer sa trésorerie et anticiper les coups durs » (la réserve financière face aux imprévus).",
+  },
+  {
+    slug: "protection-juridique",
+    title: "Se protéger juridiquement : CGV, contrats et propriété intellectuelle",
+    shortTitle: "Protection juridique",
+    category: "PROTECTION",
+    accent: "indigo",
+    tag: "PROTECTION · Pour freelances et indépendants",
+    heroSubtitle:
+      "Le guide pour comprendre ce qui te protège vraiment (et ce qui ne te protège pas encore) : conditions générales de vente, contrats de prestation, propriété intellectuelle, et gestion d'un désaccord avec un client.",
+    priceEuros: 97,
+    stripePriceId: null,
+    meta: { modules: 5, lessons: 15, quizzes: 5 },
+    buyList: [
+      "15 leçons avec modèles de clauses commentées",
+      "5 quiz d'évaluation avec correction",
+      "Des exemples de formulations prêtes à adapter",
+      "Mises à jour incluses",
+    ],
+    learnItems: [
+      "Comprendre ce que la séparation de patrimoine protège vraiment, et ce qu'elle ne couvre pas.",
+      "Savoir si la RC pro est obligatoire pour ton activité, et pourquoi la souscrire même sans obligation.",
+      "Rédiger des CGV et un contrat de prestation qui protègent vraiment, avec des clauses commentées.",
+      "Comprendre qui possède réellement ce que tu crées pour un client, et rédiger une clause de cession claire.",
+      "Réagir avec méthode face à un désaccord ou un client insatisfait.",
+      "Savoir reconnaître le moment où consulter un professionnel du droit devient nécessaire.",
+    ],
+    modules: [
+      { title: "Comprendre ce qui te protège (et ce qui ne te protège pas)", description: "Patrimoine séparé, RC pro, panorama des protections" },
+      { title: "Les CGV : ton cadre de référence", description: "Ce qu'elles doivent contenir, B2C vs B2B" },
+      { title: "Le contrat de prestation", description: "Les clauses qui protègent le plus, modèles commentés" },
+      { title: "La propriété intellectuelle", description: "Qui possède quoi, cession de droits, cas particuliers" },
+      { title: "Gérer un désaccord ou un litige", description: "Prévenir, réagir, savoir consulter un professionnel" },
+    ],
+    forWho: {
+      yes: "Tu n'as jamais de CGV ni de contrat clair, tu ne sais pas qui possède réellement ce que tu livres à tes clients, ou tu redoutes de ne pas savoir réagir face à un désaccord ou un litige.",
+      no: "Tu es déjà accompagné·e par un avocat sur l'ensemble de ces sujets — cette formation te donne l'essentiel pour l'autonomie au quotidien, pas un service juridique personnalisé.",
+    },
+    faq: [
+      { question: "Cette formation remplace-t-elle un avocat ?", answer: "Non, elle donne les bons réflexes et les repères pour la majorité des situations courantes, mais ne remplace jamais un conseil personnalisé pour un litige déjà engagé ou une situation complexe." },
+      { question: "Vais-je recevoir des modèles de clauses à copier directement ?", answer: "Oui, plusieurs exemples de clauses commentées sont fournis, à adapter à ta propre activité — pas des modèles universels à utiliser tels quels sans réflexion." },
+      { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
+    ],
+    totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation complète naturellement « Facturer et se faire payer à temps » (le volet paiement) et « De la première prise de contact au client payant » (le volet commercial).",
+  },
+  {
+    slug: "fidelisation",
+    title: "Fidéliser et faire grandir sa clientèle existante",
+    shortTitle: "Fidélisation",
+    category: "COMMERCIAL",
+    accent: "sage",
+    tag: "COMMERCIAL · Pour freelances et indépendants",
+    heroSubtitle:
+      "Le guide pour transformer un client ponctuel en client récurrent, vendre plus sans forcer, et récolter recommandations et témoignages sans malaise — la suite logique après ta première vente.",
+    priceEuros: 97,
+    stripePriceId: null,
+    meta: { modules: 5, lessons: 15, quizzes: 5 },
+    buyList: [
+      "15 leçons avec scripts de messages prêts à adapter",
+      "5 quiz d'évaluation avec correction",
+      "Un plan d'action personnalisé en fin de formation",
+      "Mises à jour incluses",
+    ],
+    learnItems: [
+      "Comprendre pourquoi tes clients existants sont ta ressource commerciale la plus sous-exploitée.",
+      "Rester dans le paysage après une mission, sans jamais ressembler à une relance commerciale.",
+      "Repérer les occasions naturelles de vendre plus à un client déjà convaincu.",
+      "Demander un témoignage ou une recommandation sans malaise, et les utiliser efficacement.",
+      "Éviter les erreurs qui cassent une relation client construite sur la durée.",
+      "Mettre en place une routine de fidélisation simple et tenable dans le temps.",
+    ],
+    modules: [
+      { title: "La ressource la plus sous-exploitée", description: "Pourquoi les clients existants comptent tant, ce qui les fait revenir" },
+      { title: "Rester dans le paysage après la mission", description: "Bon rythme, messages non commerciaux, documenter ses clients" },
+      { title: "Vendre plus à un client déjà convaincu", description: "Repérer les occasions, proposer sans forcer" },
+      { title: "Transformer la satisfaction en preuve sociale", description: "Témoignages et recommandations, sans malaise" },
+      { title: "Construire un système durable", description: "Erreurs à éviter, routine simple, plan d'action" },
+    ],
+    forWho: {
+      yes: "Tu passes ton temps à chercher de nouveaux clients sans jamais penser à ceux que tu as déjà, ou tu te sens gêné·e à l'idée de demander un témoignage ou de proposer une suite à une mission.",
+      no: "Tu n'as pas encore signé ton premier client — commence plutôt par « De la première prise de contact au client payant », cette formation prend le relais juste après.",
+    },
+    faq: [
+      { question: "Cette formation convient-elle à toute activité freelance ?", answer: "Oui, les principes s'adaptent à toute activité de service qui travaille avec des clients récurrents ou ponctuels, quel que soit le secteur." },
+      { question: "Vais-je apprendre à demander des témoignages sans avoir l'air de mendier ?", answer: "Oui, c'est précisément l'objet du module 4, avec des formulations concrètes prêtes à adapter." },
+      { question: "Combien de temps ai-je accès à la formation ?", answer: "L'accès est à vie, avec les mises à jour incluses." },
+    ],
+    totalLessonsForProgress: 20,
+    prerequisiteNote:
+      "Cette formation est la suite naturelle de « De la première prise de contact au client payant », une fois la première mission déjà signée et livrée.",
   },
 ];
 
