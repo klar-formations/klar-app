@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { stripe } from "@/lib/stripe";
 import { getCourse } from "@/lib/courses";
+import { getPack } from "@/lib/packs";
 import SuccessBadge from "@/components/illustrations/SuccessBadge";
 
 export const metadata = { title: "Merci — Klar" };
@@ -13,21 +14,37 @@ export default async function MerciPage({
   const { session_id } = await searchParams;
 
   let courseTitle: string | null = null;
+  let includedTitles: string[] | null = null;
   let amountEuros: number | null = null;
   let email: string | null = null;
+  let isPack = false;
 
   if (session_id) {
     try {
       const session = await stripe.checkout.sessions.retrieve(session_id);
-      const slug = session.metadata?.course_slug;
-      const course = slug ? getCourse(slug) : undefined;
-      courseTitle = course?.shortTitle ?? null;
+      const packSlug = session.metadata?.pack_slug;
+      const pack = packSlug ? getPack(packSlug) : undefined;
+
+      if (pack) {
+        courseTitle = `Pack — ${pack.title}`;
+        includedTitles = pack.courseSlugs
+          .map((slug) => getCourse(slug)?.shortTitle)
+          .filter((t): t is string => !!t);
+      } else {
+        const slug = session.metadata?.course_slug;
+        const course = slug ? getCourse(slug) : undefined;
+        courseTitle = course?.shortTitle ?? null;
+      }
+
       amountEuros = session.amount_total ? session.amount_total / 100 : null;
       email = session.customer_details?.email ?? null;
+      isPack = !!pack;
     } catch {
       // Invalid or expired session id — fall back to the generic message below.
     }
   }
+
+  const formationWord = isPack ? "tes formations" : "ta formation";
 
   return (
     <div className="wrap">
@@ -51,15 +68,20 @@ export default async function MerciPage({
             }}
           >
             <div style={{ fontWeight: 700, fontSize: "1.05rem" }}>{courseTitle}</div>
+            {includedTitles && includedTitles.length > 0 && (
+              <div style={{ color: "#5c5f7a", fontSize: "0.85rem", marginTop: 4 }}>
+                {includedTitles.join(" · ")}
+              </div>
+            )}
             {amountEuros !== null && (
-              <div style={{ color: "#5c5f7a", fontSize: "0.9rem" }}>{amountEuros} € · accès à vie</div>
+              <div style={{ color: "#5c5f7a", fontSize: "0.9rem", marginTop: 4 }}>{amountEuros} € · accès à vie</div>
             )}
           </div>
         )}
 
         <p className="sub">
           Un e-mail{email ? <> vient d&apos;être envoyé à <strong>{email}</strong></> : " vient de t'être envoyé"} avec
-          un lien pour accéder immédiatement à ta formation. Vérifie ta boîte de réception (et tes
+          un lien pour accéder immédiatement à {formationWord}. Vérifie ta boîte de réception (et tes
           spams) dans les prochaines minutes.
         </p>
 
@@ -73,7 +95,7 @@ export default async function MerciPage({
         </div>
 
         <p className="auth-note">
-          Tu pourras toujours retrouver ta formation en te connectant avec la même adresse e-mail
+          Tu pourras toujours retrouver {formationWord} en te connectant avec la même adresse e-mail
           depuis la page &quot;Se connecter&quot;.
         </p>
       </div>

@@ -83,8 +83,10 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
 
       <div className="wrap section">
         <h2>Le programme</h2>
-        <div className="img-placeholder" style={{ aspectRatio: "21/9", marginBottom: 20 }}>
-          <span>Emplacement image — capture d&apos;écran de l&apos;interface de la formation</span>
+        <div className="programme-meta">
+          <span className="programme-pill bg-accent-pale">{course.meta.modules} modules</span>
+          <span className="programme-pill bg-accent-pale">{course.meta.lessons} leçons</span>
+          <span className="programme-pill bg-accent-pale">{course.meta.quizzes} quiz</span>
         </div>
         <div className="mod-list">
           {course.modules.map((mod, i) => (

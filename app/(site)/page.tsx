@@ -48,10 +48,14 @@ export default async function HomePage() {
               Chaque formation est pensée pour être suivie en autonomie, avec des modules denses,
               des quiz et des ressources prêtes à l&apos;emploi.
             </p>
-            <p style={{ marginTop: -6 }}>
-              <Link href="/parcours">Pas sûr·e par où commencer ? Suis le parcours conseillé →</Link>
-            </p>
           </div>
+          <Link href="/parcours" className="parcours-banner">
+            <div className="parcours-banner-text">
+              <h3>Pas sûr·e par où commencer ?</h3>
+              <p>Suis les parcours conseillés, regroupés en packs à -10% par rapport à l&apos;unité.</p>
+            </div>
+            <span className="parcours-banner-arrow">Voir les parcours →</span>
+          </Link>
           <div className="catalog-grid">
             {courses.map((course) => (
               <div className={`course-card accent-${course.accent}`} key={course.slug}>

@@ -30,9 +30,17 @@ export async function POST(request: NextRequest) {
     const session = event.data.object as Stripe.Checkout.Session;
     const email = session.customer_details?.email;
     const courseSlug = session.metadata?.course_slug;
+    const packSlug = session.metadata?.pack_slug;
+    const packCourseSlugs = session.metadata?.course_slugs;
 
-    if (!email || !courseSlug) {
-      console.error("Webhook: email ou course_slug manquant sur la session", session.id);
+    const slugsToGrant = packSlug && packCourseSlugs
+      ? packCourseSlugs.split(",").filter(Boolean)
+      : courseSlug
+        ? [courseSlug]
+        : [];
+
+    if (!email || slugsToGrant.length === 0) {
+      console.error("Webhook: email ou formation(s) manquant(s) sur la session", session.id);
       return NextResponse.json({ received: true });
     }
 
@@ -53,13 +61,13 @@ export async function POST(request: NextRequest) {
     const userId = linkData.user.id;
 
     const { error: purchaseError } = await admin.from("purchases").upsert(
-      {
+      slugsToGrant.map((slug) => ({
         user_id: userId,
-        course_slug: courseSlug,
+        course_slug: slug,
         stripe_session_id: session.id,
         amount_total: session.amount_total,
         currency: session.currency,
-      },
+      })),
       { onConflict: "user_id,course_slug" }
     );
 
@@ -76,7 +84,7 @@ export async function POST(request: NextRequest) {
     await anon.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/mes-formations/${courseSlug}`,
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/mes-formations/${slugsToGrant[0]}`,
       },
     });
   }
