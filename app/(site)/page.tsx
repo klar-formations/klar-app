@@ -25,9 +25,9 @@ export default async function HomePage() {
             sans blabla, toujours à jour.
           </p>
           <div className="hero-actions">
-            <a href="#catalogue" className="btn btn-primary">
+            <Link href="/catalogue" className="btn btn-primary">
               Voir le catalogue →
-            </a>
+            </Link>
             <Link href={user ? "/mes-formations" : "/connexion"} className="btn btn-ghost">
               Mon espace membre
             </Link>
