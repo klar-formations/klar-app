@@ -89,7 +89,7 @@ export default async function MerciPage({
           <Link href="/mes-formations" className="btn btn-primary">
             Aller à mon espace →
           </Link>
-          <Link href="/#catalogue" className="btn btn-ghost">
+          <Link href="/catalogue" className="btn btn-ghost">
             Retour au catalogue
           </Link>
         </div>

@@ -38,7 +38,7 @@ export default async function MesFormationsPage() {
             <h3>Aucune formation pour le moment</h3>
             <p>Découvre le catalogue pour commencer.</p>
           </div>
-          <Link href="/#catalogue" className="btn btn-primary">Voir le catalogue</Link>
+          <Link href="/catalogue" className="btn btn-primary">Voir le catalogue</Link>
         </div>
       ) : (
         <div className="catalog-grid">

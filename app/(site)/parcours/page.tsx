@@ -71,7 +71,7 @@ export default function ParcoursPage() {
           Le catalogue complet reste consultable librement — choisis directement la formation qui
           répond à ton besoin du moment.
         </p>
-        <Link href="/#catalogue" className="btn btn-primary">
+        <Link href="/catalogue" className="btn btn-primary">
           Voir le catalogue complet
         </Link>
       </div>

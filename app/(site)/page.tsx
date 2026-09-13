@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getUserPurchasedSlugs } from "@/lib/purchases";
 import { courses } from "@/lib/courses";
 import PhotoCover from "@/components/illustrations/PhotoCover";
+import CourseCatalogGrid from "@/components/CourseCatalogGrid";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -56,37 +57,11 @@ export default async function HomePage() {
             </div>
             <span className="parcours-banner-arrow">Voir les parcours →</span>
           </Link>
-          <div className="catalog-grid">
-            {courses.map((course) => (
-              <div className={`course-card accent-${course.accent}`} key={course.slug}>
-                <div className="illustration-frame" style={{ aspectRatio: "16/9", borderRadius: 0 }}>
-                  <PhotoCover src={`/images/${course.slug}-catalog.jpg`} alt={course.shortTitle} />
-                </div>
-                <div className={`course-band ${course.accent}`}></div>
-                <div className="course-body">
-                  <div className="course-eyebrow" style={{ color: `var(--${course.accent === "indigo" ? "indigo" : course.accent})` }}>
-                    {course.category}
-                  </div>
-                  <h3>{course.shortTitle}</h3>
-                  <p className="desc">{course.heroSubtitle}</p>
-                  <div className="course-meta">
-                    <span>{course.meta.modules} modules</span>
-                    <span>{course.meta.lessons} leçons</span>
-                    <span>{course.meta.quizzes} quiz</span>
-                  </div>
-                  <div className="course-price">
-                    {course.priceEuros} € <span>accès à vie</span>
-                  </div>
-                  <Link
-                    href={`/formations/${course.slug}`}
-                    className="btn btn-primary"
-                    style={{ justifyContent: "center" }}
-                  >
-                    Voir la formation
-                  </Link>
-                </div>
-              </div>
-            ))}
+          <CourseCatalogGrid courses={courses.slice(0, 3)} />
+          <div style={{ textAlign: "center", marginTop: 30 }}>
+            <Link href="/catalogue" className="btn btn-primary">
+              Voir tout le catalogue →
+            </Link>
           </div>
         </div>
       </section>
@@ -164,7 +139,7 @@ export default async function HomePage() {
                 <h3>Aucune formation pour le moment</h3>
                 <p>Découvre le catalogue ci-dessus pour commencer.</p>
               </div>
-              <a href="#catalogue" className="btn btn-primary">Voir le catalogue</a>
+              <Link href="/catalogue" className="btn btn-primary">Voir le catalogue</Link>
             </div>
           ) : (
             <div className="member-panel">

@@ -15,7 +15,7 @@ export default async function Header() {
           <span className="brand-dot"></span>Klar
         </Link>
         <nav className="mainnav">
-          <Link href="/#catalogue">Catalogue</Link>
+          <Link href="/catalogue">Catalogue</Link>
           <Link href="/#pourquoi">Pourquoi Klar</Link>
           <Link href="/mes-formations">Mon espace</Link>
         </nav>
