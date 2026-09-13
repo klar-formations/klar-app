@@ -137,7 +137,8 @@ export default async function HomePage() {
               vérifier que tout est bien assimilé, à ton rythme.
             </p>
             <div className="story-quote">
-              Klar veut dire « clair, net » en scandinave. Avec Klar, on va à l&apos;essentiel.
+              « Klar » signifie « clair, net » en scandinave — la promesse de la marque : de la
+              clarté dans l&apos;administratif et le commercial.
             </div>
           </div>
         </div>
