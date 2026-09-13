@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { getCourse } from "@/lib/courses";
-import { getPack, getPackCourses, getPackPricing } from "@/lib/packs";
+import { getPack, getPackPricingFor } from "@/lib/packs";
+import { createClient } from "@/lib/supabase/server";
+import { getUserPurchasedSlugs } from "@/lib/purchases";
 
 export async function POST(request: NextRequest) {
   const { slug, packSlug } = await request.json();
@@ -12,8 +14,27 @@ export async function POST(request: NextRequest) {
     if (!pack) {
       return NextResponse.json({ error: "Pack introuvable" }, { status: 404 });
     }
-    const packCourses = getPackCourses(pack);
-    const { discounted } = getPackPricing(pack);
+
+    // Ownership is always re-derived server-side from the authenticated session
+    // (if any) — never trust a client-supplied list of already-owned courses.
+    const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    const ownedSlugs = user ? await getUserPurchasedSlugs(supabase, user.id) : [];
+
+    const { fullyOwned, remainingSlugs, discounted } = getPackPricingFor(pack, ownedSlugs);
+
+    if (fullyOwned) {
+      return NextResponse.json(
+        { error: "Tu possèdes déjà toutes les formations de ce pack." },
+        { status: 400 }
+      );
+    }
+
+    const remainingCourses = remainingSlugs
+      .map((s) => getCourse(s))
+      .filter((c): c is NonNullable<typeof c> => !!c);
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -23,14 +44,14 @@ export async function POST(request: NextRequest) {
             currency: "eur",
             product_data: {
               name: `Pack — ${pack.title}`,
-              description: packCourses.map((c) => c.shortTitle).join(", "),
+              description: remainingCourses.map((c) => c.shortTitle).join(", "),
             },
             unit_amount: discounted * 100,
           },
           quantity: 1,
         },
       ],
-      metadata: { pack_slug: pack.slug, course_slugs: pack.courseSlugs.join(",") },
+      metadata: { pack_slug: pack.slug, course_slugs: remainingSlugs.join(",") },
       success_url: `${origin}/merci?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/parcours`,
     });

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getUserPurchasedSlugs } from "@/lib/purchases";
-import { courses } from "@/lib/courses";
+import { courses, getCourse } from "@/lib/courses";
 import PhotoCover from "@/components/illustrations/PhotoCover";
 import CourseCatalogGrid from "@/components/CourseCatalogGrid";
+import Testimonials, { type Testimonial } from "@/components/Testimonials";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -12,6 +13,21 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   const purchasedSlugs = user ? await getUserPurchasedSlugs(supabase, user.id) : [];
+
+  const { data: reviewRows } = await supabase
+    .from("reviews")
+    .select("id, name, course_slug, rating, comment")
+    .eq("status", "approved")
+    .order("created_at", { ascending: false })
+    .limit(12);
+
+  const testimonials: Testimonial[] = (reviewRows ?? []).map((r) => ({
+    id: r.id as string,
+    name: r.name as string,
+    courseTitle: r.course_slug ? getCourse(r.course_slug as string)?.shortTitle ?? null : null,
+    rating: r.rating as number,
+    comment: r.comment as string,
+  }));
 
   return (
     <>
@@ -96,6 +112,18 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {testimonials.length > 0 && (
+        <section className="section" id="temoignages">
+          <div className="wrap">
+            <div className="section-head">
+              <h2>Elles en parlent mieux que nous</h2>
+              <p>Les retours des élèves qui ont suivi les formations.</p>
+            </div>
+            <Testimonials testimonials={testimonials} />
+          </div>
+        </section>
+      )}
 
       <section className="section" id="histoire">
         <div className="wrap">

@@ -1,11 +1,19 @@
 import Link from "next/link";
 import { getCourse } from "@/lib/courses";
-import { packs, getPackPricing } from "@/lib/packs";
+import { packs, getPackPricingFor } from "@/lib/packs";
+import { createClient } from "@/lib/supabase/server";
+import { getUserPurchasedSlugs } from "@/lib/purchases";
 import PackBuyButton from "./PackBuyButton";
 
 export const metadata = { title: "Par où commencer — Klar" };
 
-export default function ParcoursPage() {
+export default async function ParcoursPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const ownedSlugs = user ? await getUserPurchasedSlugs(supabase, user.id) : [];
+
   return (
     <div className="wrap parcours-page">
       <div className="parcours-hero">
@@ -23,7 +31,7 @@ export default function ParcoursPage() {
       </div>
 
       {packs.map((pack, pi) => {
-        const { total, discounted, savings } = getPackPricing(pack);
+        const pricing = getPackPricingFor(pack, ownedSlugs);
         return (
           <div className="phase" key={pack.slug}>
             <div className="phase-head">
@@ -36,10 +44,14 @@ export default function ParcoursPage() {
               {pack.courseSlugs.map((slug) => {
                 const course = getCourse(slug);
                 if (!course) return null;
+                const owned = ownedSlugs.includes(slug);
                 return (
                   <li className="step" key={slug}>
                     <Link className="step-card" href={`/formations/${slug}`}>
-                      <span className="step-tag">{course.category}</span>
+                      <span className="step-tag">
+                        {course.category}
+                        {owned && <span className="step-owned"> · déjà acquise ✓</span>}
+                      </span>
                       <h3>{course.shortTitle}</h3>
                       <p>{course.heroSubtitle}</p>
                     </Link>
@@ -48,19 +60,33 @@ export default function ParcoursPage() {
               })}
             </ul>
 
-            <div className="pack-pricing">
-              <div className="pack-pricing-info">
-                <span className="pack-badge">-{pack.discountPercent}%</span>
-                <div className="pack-pricing-numbers">
-                  <span className="pack-price-old">{total} €</span>
-                  <span className="pack-price-new">{discounted} €</span>
+            {pricing.fullyOwned ? (
+              <div className="pack-pricing">
+                <div className="pack-pricing-info">
+                  <span className="pack-savings" style={{ fontWeight: 700, color: "var(--indigo)" }}>
+                    Tu as déjà toutes les formations de ce pack ✓
+                  </span>
                 </div>
-                <span className="pack-savings">soit {savings} € d&apos;économie</span>
               </div>
-              <div className="pack-pricing-action">
-                <PackBuyButton packSlug={pack.slug} />
+            ) : (
+              <div className="pack-pricing">
+                <div className="pack-pricing-info">
+                  <span className="pack-badge">-{pricing.discountPercent}%</span>
+                  <div className="pack-pricing-numbers">
+                    <span className="pack-price-old">{pricing.total} €</span>
+                    <span className="pack-price-new">{pricing.discounted} €</span>
+                  </div>
+                  <span className="pack-savings">
+                    soit {pricing.savings} € d&apos;économie
+                    {pricing.remainingSlugs.length < pack.courseSlugs.length &&
+                      " sur les formations restantes"}
+                  </span>
+                </div>
+                <div className="pack-pricing-action">
+                  <PackBuyButton packSlug={pack.slug} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         );
       })}

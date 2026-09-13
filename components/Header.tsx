@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./LogoutButton";
+import MobileNav from "./MobileNav";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -18,6 +19,7 @@ export default async function Header() {
           <Link href="/catalogue">Catalogue</Link>
           <Link href="/#pourquoi">Pourquoi Klar</Link>
           <Link href="/mes-formations">Mon espace</Link>
+          {user && <Link href="/compte">Mon compte</Link>}
         </nav>
         <div id="accountArea">
           {user ? (
@@ -31,6 +33,7 @@ export default async function Header() {
             </Link>
           )}
         </div>
+        <MobileNav hasUser={!!user} />
       </div>
     </header>
   );
