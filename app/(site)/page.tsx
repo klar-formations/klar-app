@@ -167,25 +167,16 @@ export default async function HomePage() {
               <a href="#catalogue" className="btn btn-primary">Voir le catalogue</a>
             </div>
           ) : (
-            <div className="member-panel" style={{ alignItems: "flex-start" }}>
+            <div className="member-panel">
               <div>
                 <h3>Tes formations</h3>
-                <p>Accède directement à leur contenu.</p>
+                <p>
+                  Tu as accès à {purchasedSlugs.length} formation{purchasedSlugs.length > 1 ? "s" : ""}.
+                </p>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, minWidth: 280 }}>
-                {courses
-                  .filter((c) => purchasedSlugs.includes(c.slug))
-                  .map((c) => (
-                    <Link
-                      key={c.slug}
-                      href={`/mes-formations/${c.slug}`}
-                      className="btn btn-ghost"
-                      style={{ justifyContent: "center" }}
-                    >
-                      {c.shortTitle}
-                    </Link>
-                  ))}
-              </div>
+              <Link href="/mes-formations" className="btn btn-primary">
+                Accéder à mes formations →
+              </Link>
             </div>
           )}
         </div>
