@@ -1,7 +1,6 @@
 # To-do — Klar
 
-## 🔴 À faire côté toi, bloquant pour les nouvelles fonctionnalités
-- [ ] Exécuter `supabase-migrations.sql` dans Supabase (Dashboard > SQL Editor) — crée les tables `profiles` et `reviews`, nécessaires pour l'espace "Mon compte" et le système d'avis
+## 🔴 À faire côté toi
 - [ ] (Optionnel) Générer un mot de passe d'application Gmail pour recevoir une notification e-mail à chaque nouvel avis déposé — sinon les avis sont bien enregistrés mais sans notification
 
 ## 🟠 Avant l'ouverture au public
@@ -9,8 +8,7 @@
 - [ ] Démarche d'immatriculation micro-entreprise (SIRET) — nécessaire pour Stripe en mode réel et pour être payée
 - [ ] Compléter les 3 pages légales (mentions légales, CGV, confidentialité) avec les vraies informations une fois le SIRET obtenu — idéalement faire relire par un professionnel
 - [ ] Relecture finale du contenu des 11 formations par Marie-Claire
-- [ ] Domaine personnalisé (le site est en `.vercel.app` pour l'instant)
-- [ ] Configurer l'envoi des e-mails de connexion depuis un domaine perso (délivrabilité, actuellement via l'adresse générique Supabase)
+- [ ] Configurer l'envoi des e-mails de connexion depuis le domaine perso (délivrabilité, actuellement via l'adresse générique Supabase)
 
 ## 🟢 Plus tard / marketing
 - [ ] Activer les codes promo (Stripe Promotion Codes)
@@ -38,4 +36,6 @@
 - [x] Menu mobile (burger) — les liens de navigation étaient invisibles sur téléphone
 - [x] Espace utilisateur `/compte` : informations personnelles, paiements/factures, confidentialité (RGPD)
 - [x] Réduction de -5% sur les formations restantes d'un pack si certaines sont déjà achetées
-- [x] Système d'avis : formulaire caché `/avis`, modération `/admin/avis`, carrousel de témoignages sur la homepage
+- [x] Système d'avis : formulaire caché `/avis`, modération `/admin/avis`, carrousel de témoignages sur la homepage (3 avis fictifs en attendant les vrais retours)
+- [x] Tables Supabase `profiles` et `reviews` créées et actives
+- [x] Nom de domaine personnalisé acheté et connecté : https://www.klar-formations.com (webhook Stripe + variables mises à jour)
